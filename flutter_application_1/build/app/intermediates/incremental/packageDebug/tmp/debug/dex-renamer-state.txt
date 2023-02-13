@@ -1,4 +1,4 @@
-#Fri Feb 03 22:50:25 CST 2023
-base.0=C\:\\Users\\trasf\\Documents\\Moviles\\flutter_application_1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Sun Feb 12 22:05:07 CST 2023
+base.0=C\:\\Users\\trasf\\Documents\\GitHub\\Programacion-movil\\flutter_application_1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

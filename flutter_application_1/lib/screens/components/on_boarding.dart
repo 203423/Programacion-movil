@@ -128,7 +128,7 @@ AnimatedContainer pages({required int index, required int currentPage}) {
     duration: kThemeAnimationDuration,
     decoration: BoxDecoration(
         color: currentPage == index
-            ? Colors.pink
+            ? Colors.amber
             : const Color.fromARGB(255, 175, 171, 171)),
   );
 }
