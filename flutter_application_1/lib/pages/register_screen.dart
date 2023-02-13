@@ -44,7 +44,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Text(
                           'Crea una cuenta para empezar a usar la app',
                           style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         ),
                       ),
                       Padding(
@@ -128,9 +130,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   agree = value ?? false;
                                 });
                               }),
-                          const Text(
-                            'Acepto los terminos y condiciones',
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.70,
+                            child: RichText(
+                              text: const TextSpan(
+                                  text: 'Al registrarme, acepto los ',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 12),
+                                  children: [
+                                    TextSpan(
+                                      text: 'términos y condiciones ',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 65, 3, 141),
+                                          fontWeight: FontWeight.bold),
+                                      children: [
+                                        TextSpan(
+                                          text: 'y la ',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal),
+                                          children: [
+                                            TextSpan(
+                                              text: 'politica de privacidad',
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 65, 3, 141),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                              textAlign: TextAlign.justify,
+                            ),
                           )
                         ],
                       ),
@@ -155,27 +189,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: RichText(
                           text: TextSpan(
-                              text: 'Ya tienes cuenta?',
-                              style: const TextStyle(color: Colors.black),
-                              children: [
-                                TextSpan(
-                                  text: ' Inicia sesion',
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 65, 3, 141),
-                                      fontWeight: FontWeight.bold),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return const LoginScreen();
-                                          },
-                                        ),
-                                      );
-                                    },
-                                ),
-                              ]),
+                            text: 'Ya tienes cuenta?',
+                            style: const TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                text: ' Inicia sesion',
+                                style: const TextStyle(
+                                    color: Color.fromARGB(255, 65, 3, 141),
+                                    fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const LoginScreen();
+                                        },
+                                      ),
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

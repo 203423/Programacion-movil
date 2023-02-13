@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/login_screen.dart';
 import 'package:flutter_application_1/pages/register_screen.dart';
 import 'package:flutter_application_1/screens/components/on_boarding.dart';
 
@@ -18,15 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Stack(children: [
       Container(
         decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 149, 31, 245),
-            gradient: LinearGradient(
-              colors: [
-                (Color.fromARGB(255, 220, 31, 245)),
-                (Color.fromARGB(255, 227, 176, 234))
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
+          color: Color.fromARGB(255, 255, 255, 255),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
@@ -93,7 +88,56 @@ class _SplashScreenState extends State<SplashScreen> {
                             fontSize: 16,
                             color: Color.fromARGB(255, 91, 91, 91))),
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10, top: 140),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: 'Entrar como invitado',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 8, 141, 3),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: 'Entrar como invitado',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 141, 5, 3),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'Ya tienes cuenta?',
+                        style: const TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: ' Inicia sesion',
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 65, 3, 141),
+                                fontWeight: FontWeight.bold),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const LoginScreen();
+                                    },
+                                  ),
+                                );
+                              },
+                          ),
+                        ]),
+                  ),
+                ),
               ],
             ),
           ),

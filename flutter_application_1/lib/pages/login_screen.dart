@@ -44,19 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           'Inicia sesión para empezar a usar la app',
                           style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'Nombre',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         ),
                       ),
                       Padding(
