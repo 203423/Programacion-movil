@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_recognition/pages/body_boarding.dart';
+// import 'package:fruit_recognition/pages/body_boarding.dart';
+import 'package:fruit_recognition/pages/splash_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const BodyBoarding(),
+      home: const SplashScreen(),
     );
   }
 }

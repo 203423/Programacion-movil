@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -10,7 +11,7 @@ class CameraBoarding extends StatefulWidget {
   State<CameraBoarding> createState() => _CameraBoardingState();
 }
 
-class prediction {
+class Prediction {
   late final String predict;
 }
 
@@ -31,7 +32,7 @@ class _CameraBoardingState extends State<CameraBoarding> {
   Future<void> sendImage(BuildContext context) async {
     final bytes = await image!.readAsBytes();
     final dio = Dio();
-    var respuesta;
+    var respuesta = "";
     dio.options.baseUrl = 'http://192.168.89.114:8000/';
     //dio.options.headers['Authorization'] = 'Bearer your-token';
 
@@ -41,9 +42,9 @@ class _CameraBoardingState extends State<CameraBoarding> {
 
     try {
       final response = await dio.post('api/v1/predecir/', data: formData);
-      print(response.data);
+
       final respuesta = response.data;
-      print('Imagen enviada');
+
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -54,14 +55,16 @@ class _CameraBoardingState extends State<CameraBoarding> {
           });
       return respuesta;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e);
+      }
     }
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Respuesta'),
-            content: Text('La fruta es: $respuesta'),
+            title: const Text('Respuesta'),
+            content: Text('La fruta o verdura es: $respuesta'),
           );
         });
     // print(bytes);
@@ -75,7 +78,7 @@ class _CameraBoardingState extends State<CameraBoarding> {
           return AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: const Text('Please choose media to select'),
+            title: const Text('Escoge una opción'),
             content: SizedBox(
               height: MediaQuery.of(context).size.height / 6,
               child: Column(
@@ -89,7 +92,7 @@ class _CameraBoardingState extends State<CameraBoarding> {
                     child: Row(
                       children: const [
                         Icon(Icons.image),
-                        Text('From Gallery'),
+                        Text('Seleccionar imagen de la galería'),
                       ],
                     ),
                   ),
@@ -102,7 +105,7 @@ class _CameraBoardingState extends State<CameraBoarding> {
                     child: Row(
                       children: const [
                         Icon(Icons.camera),
-                        Text('From Camera'),
+                        Text('Tomar foto'),
                       ],
                     ),
                   ),
@@ -117,52 +120,87 @@ class _CameraBoardingState extends State<CameraBoarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upload Image'),
+        title: const Text('Identificador de frutas o verduras'),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        actions: <Widget>[
+          IconButton(
+            icon: Image.asset('assets/images/logo.png'),
+            onPressed: null,
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                myAlert();
-              },
-              child: const Text('Upload Photo'),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            //if image not null show the image
-            //if image null show text
-            image != null
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.file(
-                            //to show image, you type like this.
-                            File(image!.path),
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                            height: 300,
+      body: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color(0xFFE0F7FA),
+          Color(0xFFB2EBF2),
+          Color(0xFF80DEEA),
+          Color(0xFF4DD0E1),
+          Color(0xFF26C6DA),
+          Color(0xFF00BCD4),
+          Color(0xFF00ACC1),
+          Color(0xFF0097A7),
+          Color(0xFF00838F),
+          Color.fromARGB(255, 2, 74, 77),
+        ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 180, top: 50),
+                child: Text(
+                  "Identificador de frutas o verduras",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 2, 74, 77),
+                ),
+                onPressed: () {
+                  myAlert();
+                },
+                child: const Text('Subir imagen'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              //if image not null show the image
+              //if image null show text
+              image != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              //to show image, you type like this.
+                              File(image!.path),
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                              height: 300,
+                            ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            sendImage(context);
-                          },
-                          child: const Text('Send Image'),
-                        ),
-                      ],
-                    ),
-                  )
-                : const Text(
-                    "No Image",
-                    style: TextStyle(fontSize: 20),
-                  )
-          ],
+                          ElevatedButton(
+                            onPressed: () {
+                              sendImage(context);
+                            },
+                            child: const Text('Predecir fruta o verdura'),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const Text(
+                      "No has subido una imagen",
+                      style: TextStyle(fontSize: 20),
+                    )
+            ],
+          ),
         ),
       ),
     );
